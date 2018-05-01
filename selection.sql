@@ -11,7 +11,11 @@ SELECT OO.Ad, Fiyat.Deger FROM Fiyat
 	JOIN OtelOlanaklari AS OO ON OO.Id = Fiyat.OtelOlanaklariId
 WHERE BaslangicTarihi < '2018-06-01'
 
-/* oda tiplerini fiyatlariyla yazar */
-SELECT OT.Ad AS Tipi, Fiyat.Deger AS Fiyat FROM Fiyat
+/* oda tiplerinin verilen tarihler araliginda kac farkli fiyati oldugunu verir */
+SELECT OT.Ad AS Tipi, COUNT(*) FROM Fiyat
 	JOIN OdaTipi AS OT ON OT.Id = Fiyat.OdaTipiId
-WHERE BaslangicTarihi < '2018-06-01'
+WHERE 
+	BaslangicTarihi BETWEEN '2017-06-01' AND '2018-06-01' 
+AND
+	BitisTarihi BETWEEN '2017-06-01' AND '2018-06-01'
+GROUP BY OT.Ad
