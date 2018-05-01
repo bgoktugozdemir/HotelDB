@@ -1,65 +1,149 @@
-USE OTEL
-GO
+ï»¿USE OTEL
 
 INSERT INTO OtelOlanaklari VALUES
 	('Mescid'),
-	('SPA'),
+	('Spor Salonu'),
 	('Golf'),
+	('Disko'),
+	('SPA'),
+	('Masaj'),
+	('Bar'),
 	('Havuz'),
 	('Hamam'),
-	('Masaj'),
-	('Spor Salonu'),
-	('Disko'),
-	('Bar'),
 	('Yemek Salonu');
 
 INSERT INTO Il VALUES
-	('Ýstanbul'),
-	('Ýzmir'),
+	('Adana'),
+	('AdÄ±yaman'),
+	('Afyonkarahisar'),
+	('AÄŸrÄ±'),
+	('Amasya'),
 	('Ankara'),
-	('Mardin'),
-	('Hakkari'),
 	('Antalya'),
-	('Trabzon'),
+	('Artvin'),
+	('AydÄ±n'),
+	('BalÄ±kesir'),
+	('Bilecik'),
+	('BingÃ¶l'),
+	('Bitlis'),
+	('Bolu'),
+	('Burdur'),
+	('Bursa'),
+	('Ã‡anakkale'),
+	('Ã‡ankÄ±rÄ±'),
+	('Ã‡orum'),
+	('Denizli'),
+	('DiyarbakÄ±r'),
+	('Edirne'),
+	('ElazÄ±ÄŸ'),
+	('Erzincan'),
+	('Erzurum'),
+	('EskiÅŸehir'),
+	('Gaziantep'),
+	('Giresun'),
+	('GÃ¼mÃ¼ÅŸhane'),
+	('HakkÃ¢ri'),
+	('Hatay'),
+	('Isparta'),
+	('Ä°Ã§el (Mersin)'),
+	('Ä°stanbul'),
+	('Ä°zmir'),
+	('Kars'),
+	('Kastamonu'),
+	('Kayseri'),
+	('KÄ±rklareli'),
+	('KÄ±rÅŸehir'),
+	('Kocaeli'),
+	('Konya'),
+	('KÃ¼tahya'),
+	('Malatya'),
+	('Manisa'),
+	('KahramanmaraÅŸ'),
+	('Mardin'),
+	('MuÄŸla'),
+	('MuÅŸ'),
+	('NevÅŸehir'),
+	('NiÄŸde'),
+	('Ordu'),
+	('Rize'),
+	('Sakarya'),
 	('Samsun'),
-	('Diyarbakýr'),
-	('Yalova');
+	('Siirt'),
+	('Sinop'),
+	('Sivas'),
+	('TekirdaÄŸ'),
+	('Tokat'),
+	('Trabzon'),
+	('Tunceli'),
+	('ÅžanlÄ±urfa'),
+	('UÅŸak'),
+	('Van'),
+	('Yozgat'),
+	('Zonguldak'),
+	('Aksaray'),
+	('Bayburt'),
+	('Karaman'),
+	('KÄ±rÄ±kkale'),
+	('Batman'),
+	('ÅžÄ±rnak'),
+	('BartÄ±n'),
+	('Ardahan'),
+	('IÄŸdÄ±r'),
+	('Yalova'),
+	('KarabÃ¼k'),
+	('Kilis'),
+	('Osmaniye'),
+	('DÃ¼zce');
 
 INSERT INTO Calisan(
 	KimlikNo, Cinsiyet, TelefonNumarasi, Ad, Soyad, DogumTarihi, Email
 ) VALUES
-	('12345678901', 'E', '5357654321', 'Türkalp', 'Kayrancý', '1997-05-17', 'bkayranci@gmail.com'),
-	('12345678902', 'K', '5357654322', 'Ayþe'	, 'Düzgiden', '1988-04-21', 'duzgidenayse@gmail.com'),
-	('12345678903', 'D', '5357654323', 'Deniz'	, 'Görmüþ', '1992-09-28', 'gormusdeniz@gmail.com'),
-	('12345678904', 'E', '5357654324', 'Göktuð'	, 'Özdemir', '1997-07-16', 'bgoktugozdemir@gmail.com'),
-	('12345678905', 'K', '5357654325', 'Edanur'	, 'Özdemir', '1997-01-22', 'ozdemireda@gmail.com'),
-	('12345678906', 'E', '5357654326', 'Ümit'	, 'Küçük', '1997-01-19', 'umitkucuk@gmail.com'),
-	('12345678907', 'E', '5357654327', 'Hakan'	, 'Kösdað', '1997-09-20', 'hakankosdag@gmail.com'),
-	('12345678908', 'K', '5357654328', 'Hayriye', 'Kasapçý', '1991-09-17', 'kasapciii@gmail.com'),
-	('12345678909', 'D', '5357654329', 'Fatih'	, 'Teksoy', '1991-05-17', 'asdasd@gmail.com'),
-	('12345678910', 'E', '5357654310', 'Fatih'	, 'Termin', '1983-05-17', 'fasfasdsad@gmail.com');
+	('12345678901', 'E', '5357654321', 'TÃ¼rkalp', 'KayrancÄ±', '1997-05-17', 'bkayranci@gmail.com'),
+	('12345678902', 'K', '5357654322', 'AyÅŸe'	, 'DÃ¼zgiden', '1988-04-21', 'duzgidenayse@gmail.com'),
+	('12345678903', 'D', '5357654323', 'Deniz'	, 'GÃ¶rmÃ¼ÅŸ', '1992-09-28', 'gormusdeniz@gmail.com'),
+	('12345678904', 'E', '5357654324', 'GÃ¶ktuÄŸ'	, 'Ã–zdemir', '1997-07-16', 'bgoktugozdemir@gmail.com'),
+	('12345678905', 'K', '5357654325', 'Edanur'	, 'Ã–zdemir', '1997-01-22', 'ozdemireda@gmail.com'),
+	('12345678906', 'E', '5357654326', 'Ãœmit'	, 'KÃ¼Ã§Ã¼k', '1997-01-19', 'umitkucuk@gmail.com'),
+	('12345678907', 'E', '5357654327', 'Hakan'	, 'KÃ¶sdaÄŸ', '1997-09-20', 'hakankosdag@gmail.com'),
+	('12345678908', 'K', '5357654328', 'Hayriye', 'KasapÃ§Ä±', '1991-09-17', 'kasapciii@gmail.com'),
+	('12345678909', 'D', '5357654329', 'Fatih'	, 'Teksoy', '1991-05-17', 'fatih@gmail.com'),
+	('12345678910', 'E', '5357654310', 'Fatih'	, 'Termin', '1983-05-17', 'fatih.ter@gmail.com'),
+	('12345578907', 'E', '5357654327', 'Halis'	, 'KÃ¶sdaÄŸ', '1977-09-20', 'koshalis@gmail.com'),
+	('12345478908', 'K', '5357654328', 'Gamze', 'Teksoy', '1981-09-17', 'gamzetek@gmail.com'),
+	('12345378907', 'E', '5357654327', 'Kemal'	, 'Odun', '1997-09-20', 'odunkemal@gmail.com'),
+	('12345278908', 'E', '5357654328', 'Enes', 'Usak', '1981-10-17', 'usak@gmail.com'),
+	('12345178907', 'E', '5357654327', 'Enes'	, 'Usak', '1997-09-20', 'enesusak@gmail.com'),
+	('12345078908', 'K', '5357654328', 'Emel', 'Elverdi', '1992-09-17', 'eldiven@gmail.com'),
+	('12345978907', 'E', '5357654327', 'TarÄ±k'	, 'TandoÄŸdu', '1957-09-20', 'tandogdu@gmail.com'),
+	('12345878908', 'K', '5357654328', 'RÃ¼ya', 'AyÄ±k', '1986-09-17', 'ayikruya@gmail.com'),
+	('12345778907', 'E', '5357654327', 'Hakan'	, 'AyÄ±k', '1997-09-20', 'hakanayik@gmail.com'),
+	('12346678908', 'K', '5357654328', 'Hayriye', 'KasapÃ§Ä±', '1996-09-17', 'kasapci.hayriye@gmail.com');
 
 INSERT INTO Musteri (
 	KimlikNo, Cinsiyet, TelefonNumarasi, Ad, Soyad, DogumTarihi, Email
 ) VALUES
-	('12345678901', 'E', '5347654321', 'Türkalp', 'Kayrancý'	, '1997-05-17', 'hdksadnalsdnas@gmail.com'),
-	('12345678902', 'K', '5347654322', 'Ayþe'	, 'Düzgiden'	, '1988-04-21', null),
-	('12345678903', 'D', '5347654323', 'Deniz'	, 'Görmüþ'		, '1992-09-28', null),
-	('12345678904', 'E', '5347654324', 'Göktuð'	, 'Özdemir'		, '1997-07-16', 'kkkk@gmail.com'),
-	('12345678905', 'K', '5347654325', 'Edanur'	, 'Özdemir'		, '1997-01-22', null),
-	('12345678906', 'E', '5347654326', 'Ümit'	, 'Küçük'		, '1997-01-19', 'asdsad@gmail.com'),
-	('12345678907', 'E', '5347654327', 'Hakan'	, 'Kösdað'		, '1997-09-20', null),
-	('12345678908', 'K', '5347654328', 'Hayriye', 'Kasapçý'		, '1991-09-17', '1234@gmail.com'),
-	('12345678909', 'D', '5347654329', 'Fatih'	, 'Teksoy'		, '1991-05-17', null),
-	('12345678910', 'E', '5347654310', 'Fatih'	, 'Termin'		, '1983-05-17', null);
+	('12345678901', 'E', '5347654321', 'TÃ¼rkalp', 'KayrancÃ½'	, '1997-05-17', 'hdksadnalsdnas@gmail.com'),
+	('12345678904', 'E', '5347654324', 'GÃ¶ktuÃ°'	, 'Ã–zdemir'		, '1997-07-16', 'kkkk@gmail.com'),
+	('12345678906', 'E', '5347654326', 'Ãœmit'	, 'KÃ¼Ã§Ã¼k'		, '1997-01-19', 'asdsad@gmail.com'),
+	('12345678908', 'K', '5347654328', 'Hayriye', 'KasapÃ§Ã½'		, '1991-09-17', '1234@gmail.com');
+
+INSERT INTO Musteri(
+	KimlikNo, Cinsiyet, TelefonNumarasi, Ad, Soyad, DogumTarihi
+) VALUES
+	('12345678902', 'K', '5347654322', 'AyÃ¾e'	, 'DÃ¼zgiden'	, '1988-04-21'),
+	('12345678903', 'D', '5347654323', 'Deniz'	, 'GÃ¶rmÃ¼Ã¾'		, '1992-09-28'),
+	('12345678905', 'K', '5347654325', 'Edanur'	, 'Ã–zdemir'		, '1997-01-22'),
+	('12345678907', 'E', '5347654327', 'Hakan'	, 'KÃ¶sdaÃ°'		, '1997-09-20'),
+	('12345678909', 'D', '5347654329', 'Fatih'	, 'Teksoy'		, '1991-05-17'),
+	('12345678910', 'E', '5347654310', 'Fatih'	, 'Termin'		, '1983-05-17');
 
 INSERT INTO EkHizmet(
 	Ad
 ) VALUES 
 	('Oda Servisi'),
-	('Oda Kahvaltý'),
-	('Uyandýrma Servisi'),
-	('Çocuk Yataðý'),
+	('Oda KahvaltÃ½'),
+	('UyandÃ½rma Servisi'),
+	('Ã‡ocuk YataÃ°Ã½'),
 	('Minibar');
 
 INSERT INTO Rezervasyon(
@@ -80,8 +164,8 @@ INSERT INTO OdaTipi(
 	Ad
 ) VALUES 
 	('Suit'),
-	('Çift Kiþilik'),
-	('Tek Kiþilik'),
+	('Tek KiÅŸilik'),
+	('Ã‡ift KiÅŸilik'),
 	('VIP'),
 	('Kral Dairesi');
 
@@ -101,20 +185,20 @@ INSERT INTO Ilce(
 	('Termal', 10);
 
 INSERT INTO Otel (
-	Ad, Telefon, Adres, Email, OtelPuan, OtelYildiz, IlId, IlceId 
+	Ad, Telefon, Adres, Email, OtelPuani, OtelYildizi, IlId, IlceId 
 ) VALUES
-	('Termal Otel', '5554443322', 'Gökçedere Mahallesi Lale Sokak No: 3', 'mail@termalotel.com', 3, 5, 1, 1),
+	('Termal Otel', '5554443322', 'GÃ¶kÃ§edere Mahallesi Lale Sokak No: 3', 'mail@termalotel.com', 3, 5, 1, 1),
 	('Termal Otel 2', '5554443323', 'Nergis Mahallesi Lale Sokak No: 3', 'mail2@termalotel.com', 2.5, 3, 1, 1),
 	('Termal Otel', '5554443322', 'Asma Mahallesi Lale Sokak No: 3', 'mail3@termalotel.com', 4, 5, 1, 1),
 	('Termal Otel', '5554443322', 'Kadir Mahallesi Lale Sokak No: 3', 'mail4@termalotel.com', 3, 2, 1, 1),
 	('Termal Otel', '5554443322', 'Selfie Mahallesi Lale Sokak No: 3', 'mail5@termalotel.com', 3, 4, 1, 1),
 	('Termal Otel', '5554443322', 'Deniz Mahallesi Lale Sokak No: 3', 'mail6@termalotel.com', 3, 4, 1, 1),
-	('Termal Otel', '5554443322', 'Baðlarbaþý Mahallesi Lale Sokak No: 3', 'mail7@termalotel.com', 3, 1, 1, 1),
+	('Termal Otel', '5554443322', 'BaÃ°larbaÃ¾Ã½ Mahallesi Lale Sokak No: 3', 'mail7@termalotel.com', 3, 1, 1, 1),
 	('Termal Otel', '5554443322', 'Safranyolu Mahallesi Lale Sokak No: 3', 'mail8@termalotel.com', 3, 0, 1, 1),
 	('Termal Otel', '5554443322', 'Tigem Mahallesi Lale Sokak No: 3', 'mail9@termalotel.com', 3, 5, 1, 1),
 	('Termal Otel', '5554443322', 'Bornoz Mahallesi Lale Sokak No: 3', 'mail10@termalotel.com', 3, 4, 1, 1),
 	('Termal Otel', '5554443322', 'Sabuncu Mahallesi Lale Sokak No: 3', 'mail11@termalotel.com', 3, 3, 1, 1),
-	('Termal Otel', '5554443322', 'Çam Mahallesi Lale Sokak No: 3', 'mail12@termalotel.com', 3, 2, 1, 1);
+	('Termal Otel', '5554443322', 'Ã‡am Mahallesi Lale Sokak No: 3', 'mail12@termalotel.com', 3, 2, 1, 1);
 
 INSERT INTO Oda (
 	Kapasite, OtelId, OdaTipiId
@@ -134,19 +218,47 @@ INSERT INTO Oda (
 INSERT INTO Fiyat (
 	Deger, BaslangicTarihi, BitisTarihi, OtelOlanaklariId, OdaTipiId, EkHizmetId 
 ) VALUES
-	(25, '2018-04-21', '2018-04-27', NULL, NULL, 3),
-	(250, '2018-03-18', '2018-03-23', NULL, NULL, 3),
-	(285, '2018-01-03', '2018-01-05', NULL, NULL, 3),
-	(653, '2018-04-29', '2018-05-02', NULL, NULL, 3),
-	(880, '2018-02-25', '2018-02-26', NULL, NULL, 3),
-	(220, '2018-03-09', '2018-03-18', NULL, NULL, 3),
-	(1630, '2018-04-26', '2018-05-03', NULL, NULL, 3),
-	(700, '2018-07-01', '2018-07-04', NULL, NULL, 3),
-	(1200, '2018-09-09', '2018-09-14', NULL, NULL, 3),
-	(3840, '2018-06-10', '2018-06-24', NULL, NULL, 3);
+	-- 12 aylik otel olanaklari
+	(0, '2018-01-01', '2018-12-01', 1, NULL, NULL),
+	(30, '2018-01-01', '2018-12-01', 2, NULL, NULL),
+	(50, '2018-01-01', '2018-12-01', 3, NULL, NULL),
+	(40, '2018-01-01', '2018-12-01', 4, NULL, NULL),
+	(35, '2018-01-01', '2018-12-01', 5, NULL, NULL),
+	(0, '2018-01-01', '2018-12-01', 6, NULL, NULL),
+	(0, '2018-01-01', '2018-12-01', 7, NULL, NULL),
+	(0, '2018-01-01', '2018-12-01', 8, NULL, NULL),
+	(0, '2018-01-01', '2018-12-01', 9, NULL, NULL),
+	(0, '2018-01-01', '2018-12-01', 10, NULL, NULL),
 
-INSERT INTO Otel_Olanaklar (
-	OtelId, OlanakId
+	-- ilk 6 aylik oda tipi fiyatlari
+	(300, '2018-01-01', '2018-06-01', NULL, 5, NULL),
+	(250, '2018-01-01', '2018-06-01', NULL, 4, NULL),
+	(230, '2018-01-01', '2018-06-01', NULL, 3, NULL),
+	(200, '2018-01-01', '2018-06-01', NULL, 2, NULL),
+	(150, '2018-01-01', '2018-06-01', NULL, 1, NULL),
+	-- son 6 aylik oda tipi fiyatlari
+	(310, '2018-06-01', '2018-12-01', NULL, 5, NULL),
+	(280, '2018-06-01', '2018-12-01', NULL, 4, NULL),
+	(235, '2018-06-01', '2018-12-01', NULL, 3, NULL),
+	(205, '2018-06-01', '2018-12-01', NULL, 2, NULL),
+	(190, '2018-06-01', '2018-12-01', NULL, 1, NULL),
+
+	-- ilk 6 aylik ek hizmet fiyatlari
+	(200, '2018-01-01', '2018-06-01', NULL, NULL, 5),
+	(80, '2018-01-01', '2018-06-01', NULL, NULL, 4),
+	(60, '2018-01-01', '2018-06-01', NULL, NULL, 3),
+	(50, '2018-01-01', '2018-06-01', NULL, NULL, 2),
+	(25, '2018-01-01', '2018-06-01', NULL, NULL, 1),
+	-- son 6 aylik ek hizmet fiyatlari
+	(220, '2018-06-01', '2018-12-01', NULL, NULL, 5),
+	(100, '2018-06-01', '2018-12-01', NULL, NULL, 4),
+	(80, '2018-06-01', '2018-12-01', NULL, NULL, 3),
+	(60, '2018-06-01', '2018-12-01', NULL, NULL, 2),
+	(30, '2018-06-01', '2018-12-01', NULL, NULL, 1);
+
+
+INSERT INTO Otel_OtelOlanaklari (
+	OtelId, OtelOlanaklariId
 ) VALUES
 	(1,1),
 	(1,4),
@@ -175,7 +287,7 @@ INSERT INTO Otel_Calisan (
 	(8, 9, 1650, '2018-01-01', NULL, NULL),
 	(9, 10, 1650, '2018-01-01', NULL, NULL);
 
-INSERT INTO EkHizmet_Oda (
+INSERT INTO Oda_EkHizmet(
 	EkHizmetId, OdaId
 ) VALUES
 	(1,1),
@@ -189,7 +301,7 @@ INSERT INTO EkHizmet_Oda (
 	(4,9),
 	(5,10);
 
-INSERT INTO EkHizmet_Rezervasyon (
+INSERT INTO Rezervasyon_EkHizmet(
 	EkHizmetId, RezervasyonId
 ) VALUES
 	(1,1),
@@ -203,8 +315,8 @@ INSERT INTO EkHizmet_Rezervasyon (
 	(5,9),
 	(5,10);
 
-INSERT INTO Olanak_Rezervasyon (
-	OlanakId, RezervasyonId
+INSERT INTO Rezervasyon_OtelOlanaklari(
+	OtelOlanaklariId, RezervasyonId
 ) VALUES
 	(1,1),
 	(2,2),
@@ -217,7 +329,7 @@ INSERT INTO Olanak_Rezervasyon (
 	(9,9),
 	(10,10);
 
-INSERT INTO Oda_Rezervasyon (
+INSERT INTO Rezervasyon_Oda(
 	OdaId, RezervasyonId
 ) VALUES
 	(1,1),
@@ -231,7 +343,7 @@ INSERT INTO Oda_Rezervasyon (
 	(9,9),
 	(10,10);
 
-INSERT INTO Musteri_Rezervasyon (
+INSERT INTO Rezervasyon_Musteri(
 	MusteriId, RezervasyonId
 ) VALUES
 	(1,1),
@@ -244,31 +356,3 @@ INSERT INTO Musteri_Rezervasyon (
 	(8,8),
 	(9,9),
 	(10,10);
-
-/*
-SELECT * FROM OtelOlanaklari;
-SELECT * FROM Il;
-SELECT * FROM Calisan;
-SELECT * FROM Musteri;
-SELECT * FROM EkHizmet;
-SELECT * FROM OdaTipi;
-SELECT * FROM Rezervasyon;
-SELECT * FROM Ilce;
-SELECT * FROM Otel;
-SELECT * FROM Oda;
-SELECT * FROM Fiyat;
-SELECT * FROM Otel_Olanaklar;
-SELECT * FROM Otel_Calisan;
-SELECT * FROM EkHizmet_Oda;
-SELECT * FROM EkHizmet_Rezervasyon;
-SELECT * FROM Olanak_Rezervasyon;
-SELECT * FROM Oda_Rezervasyon;
-SELECT * FROM Musteri_Rezervasyon;
-*/
-
-SELECT YEAR(R.BaslangicTarihi) Yil, MONTH(R.BaslangicTarihi) Ay, OT.Ad, F.Deger FROM Rezervasyon R
-	LEFT JOIN Oda_Rezervasyon O_R ON O_R.RezervasyonId = R.Id
-	INNER JOIN OdaTipi OT ON OT.Id = O_R.OdaId
-	LEFT JOIN Fiyat F ON F.OdaTipiId = OT.Id
-
-	-- R. as Yil, Ay, OdaTipi, Tutar, RezervasyonSayisi
