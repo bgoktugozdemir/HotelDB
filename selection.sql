@@ -20,6 +20,17 @@ AND
 	BitisTarihi BETWEEN '2017-06-01' AND '2018-06-01'
 GROUP BY OT.Ad
 
+-- Verilen tarihler arasında en çok gelir elde edilen ek hizmetleri sıralar	//TODO: TAMAMLANACAK BG
+SELECT EK.Ad, F.Deger FROM Rezervasyon R
+	JOIN Rezervasyon_EkHizmet AS REK ON REK.RezervasyonId = R.Id
+	JOIN EkHizmet AS EK ON EK.Id = REK.EkHizmetId
+	JOIN Fiyat AS F ON F.EkHizmetId = EK.Id
+WHERE 
+	R.BaslangicTarihi BETWEEN '2018-01-01' AND '2019-01-01'
+AND
+	R.BitisTarihi BETWEEN '2018-01-01' AND '2019-01-01'
+GROUP BY F.Deger, EK.Ad
+ORDER BY F.Deger DESC
 
 --  2018 Mart ayındaki rezervasyonlarda rez.süresi 2017 yılı ilk 3 aylık süreden daha uzun olan rezervasyonların bilgileri
 SELECT DATEDIFF(DD, Rez.BaslangicTarihi, Rez.BitisTarihi) AS RezervasyonSuresi, Mus.Ad + ' ' + Mus.Soyad AS RezervasyonYapanMusteri FROM Rezervasyon Rez
