@@ -1160,47 +1160,47 @@ INSERT INTO Oda_EkHizmet(
 	(5,10);
 
 INSERT INTO Rezervasyon_EkHizmet(
-	EkHizmetId, RezervasyonId
+	EkHizmetId, RezervasyonId, ToplamTutar
 ) VALUES
-	(1,1),
-	(1,2),
-	(2,3),
-	(2,4),
-	(3,5),
-	(3,6),
-	(4,7),
-	(4,8),
-	(5,9),
-	(5,10);
-
+(1, 1, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 1))),
+(1, 2, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 1))),
+(2, 3, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 2))),
+(2, 4, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 2))),
+(3, 5, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 3))),
+(3, 6, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 3))),
+(4, 7, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 4))),
+(4, 8, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 4))),
+(5, 9, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 5))),
+(5, 10, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 5))),
+(5, 11, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE ('2018-07-09' BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 5))); 
 INSERT INTO Rezervasyon_OtelOlanaklari(
-	OtelOlanaklariId, RezervasyonId
+	OtelOlanaklariId, RezervasyonId, ToplamTutar
 ) VALUES
-	(1,1),
-	(2,2),
-	(3,3),
-	(4,4),
-	(5,5),
-	(6,6),
-	(7,7),
-	(8,8),
-	(9,9),
-	(10,10);
+	(1, 1, (SELECT F.Deger FROM Fiyat F JOIN OtelOlanaklari OO ON OO.Id = F.OtelOlanaklariId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND OO.Id = 1)),
+	(2, 2, (SELECT F.Deger FROM Fiyat F JOIN OtelOlanaklari OO ON OO.Id = F.OtelOlanaklariId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND OO.Id = 2)),
+	(3, 3, (SELECT F.Deger FROM Fiyat F JOIN OtelOlanaklari OO ON OO.Id = F.OtelOlanaklariId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND OO.Id = 3)),
+	(4, 4, (SELECT F.Deger FROM Fiyat F JOIN OtelOlanaklari OO ON OO.Id = F.OtelOlanaklariId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND OO.Id = 4)),
+	(5, 5, (SELECT F.Deger FROM Fiyat F JOIN OtelOlanaklari OO ON OO.Id = F.OtelOlanaklariId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND OO.Id = 5)),
+	(6, 6, (SELECT F.Deger FROM Fiyat F JOIN OtelOlanaklari OO ON OO.Id = F.OtelOlanaklariId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND OO.Id = 6)),
+	(7, 7, (SELECT F.Deger FROM Fiyat F JOIN OtelOlanaklari OO ON OO.Id = F.OtelOlanaklariId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND OO.Id = 7)),
+	(8, 8, (SELECT F.Deger FROM Fiyat F JOIN OtelOlanaklari OO ON OO.Id = F.OtelOlanaklariId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND OO.Id = 8)),
+	(9, 9, (SELECT F.Deger FROM Fiyat F JOIN OtelOlanaklari OO ON OO.Id = F.OtelOlanaklariId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND OO.Id = 9)),
+	(10, 10, (SELECT F.Deger FROM Fiyat F JOIN OtelOlanaklari OO ON OO.Id = F.OtelOlanaklariId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND OO.Id = 10));
 
 INSERT INTO Rezervasyon_Oda(
-	OdaId, RezervasyonId
+	OdaId, RezervasyonId, ToplamTutar
 ) VALUES
-	(1,1),
-	(44,1),
-	(2,2),
-	(3,3),
-	(4,4),
-	(5,5),
-	(6,6),
-	(7,7),
-	(8,8),
-	(9,9),
-	(10,10);
+	(1,1, (SELECT F.Deger FROM Fiyat F JOIN OdaTipi OT ON OT.Id = F.OdaTipiId JOIN Oda O ON O.OdaTipiId = OT.Id WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND  (O.Id = 1))),
+	(44,1, (SELECT F.Deger FROM Fiyat F JOIN OdaTipi OT ON OT.Id = F.OdaTipiId JOIN Oda O ON O.OdaTipiId = OT.Id WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND  (O.Id = 44))),
+	(2,2, (SELECT F.Deger FROM Fiyat F JOIN OdaTipi OT ON OT.Id = F.OdaTipiId JOIN Oda O ON O.OdaTipiId = OT.Id WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND  (O.Id = 2))),
+	(3,3, (SELECT F.Deger FROM Fiyat F JOIN OdaTipi OT ON OT.Id = F.OdaTipiId JOIN Oda O ON O.OdaTipiId = OT.Id WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND  (O.Id = 3))),
+	(4,4, (SELECT F.Deger FROM Fiyat F JOIN OdaTipi OT ON OT.Id = F.OdaTipiId JOIN Oda O ON O.OdaTipiId = OT.Id WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND  (O.Id = 4))),
+	(5,5, (SELECT F.Deger FROM Fiyat F JOIN OdaTipi OT ON OT.Id = F.OdaTipiId JOIN Oda O ON O.OdaTipiId = OT.Id WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND  (O.Id = 5))),
+	(6,6, (SELECT F.Deger FROM Fiyat F JOIN OdaTipi OT ON OT.Id = F.OdaTipiId JOIN Oda O ON O.OdaTipiId = OT.Id WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND  (O.Id = 6))),
+	(7,7, (SELECT F.Deger FROM Fiyat F JOIN OdaTipi OT ON OT.Id = F.OdaTipiId JOIN Oda O ON O.OdaTipiId = OT.Id WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND  (O.Id = 7))),
+	(8,8, (SELECT F.Deger FROM Fiyat F JOIN OdaTipi OT ON OT.Id = F.OdaTipiId JOIN Oda O ON O.OdaTipiId = OT.Id WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND  (O.Id = 8))),
+	(9,9, (SELECT F.Deger FROM Fiyat F JOIN OdaTipi OT ON OT.Id = F.OdaTipiId JOIN Oda O ON O.OdaTipiId = OT.Id WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND  (O.Id = 9))),
+	(10,10, (SELECT F.Deger FROM Fiyat F JOIN OdaTipi OT ON OT.Id = F.OdaTipiId JOIN Oda O ON O.OdaTipiId = OT.Id WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND  (O.Id = 10)));
 
 INSERT INTO Rezervasyon_Musteri(
 	MusteriId, RezervasyonId
