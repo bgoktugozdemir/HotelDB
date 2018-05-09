@@ -27,10 +27,11 @@ JOIN Musteri Mus ON Mus.Id = Rez.MusteriId
 	WHERE
 
 	-- baslangic ve bitis tarihi 2018 mart ayinda olan rezervasyonlar
-	Rez.BaslangicTarihi BETWEEN '2018-03-01' AND '2018-03-31' AND Rez.BitisTarihi BETWEEN '2018-01-01' AND '2018-03-31'	
+	(Rez.BaslangicTarihi BETWEEN '2018-03-01' AND '2018-03-31') AND (Rez.BitisTarihi BETWEEN '2018-01-01' AND '2018-03-31')
 
 	AND
 
+	-- ortalama sure yap
 	-- rezervasyon suresi, baslangic ve bitis tarihi 2017 ilk 3 ayda olan rezervasyonlarin suresinin her birinden buyuk olma kosulu
 	DATEDIFF(DD, Rez.BaslangicTarihi, Rez.BitisTarihi) > ALL(
 
@@ -68,6 +69,7 @@ SELECT TUMTOPLAMLAR.RezId, SUM(TUMTOPLAMLAR.TOPLAMFIYAT) AS TOPLAMFATURATUTARI F
 
 	UNION
 
+	-- otel olanagını ekleme sadece kullanılırken odeme yapılsın
 	-- rezervasyondaki otel olanaklarinin toplam tutari
 	SELECT Rez.Id AS RezId, SUM(F.Deger) AS TOPLAMFIYAT FROM Rezervasyon Rez
 	JOIN Rezervasyon_OtelOlanaklari ROO ON ROO.RezervasyonId = Rez.Id
@@ -75,6 +77,26 @@ SELECT TUMTOPLAMLAR.RezId, SUM(TUMTOPLAMLAR.TOPLAMFIYAT) AS TOPLAMFATURATUTARI F
 	JOIN Fiyat F ON F.EkHizmetId = OO.Id AND Rez.BaslangicTarihi BETWEEN F.BaslangicTarihi AND F.BitisTarihi
 	GROUP BY Rez.Id) AS TUMTOPLAMLAR
 GROUP BY TUMTOPLAMLAR.RezId
+
+
+
+-- ## V2 ## rezervasyonun fatura tutarı yani rezervasyondaki odalarin, ek hizmetlerin ve otel olanaklarin rezervasyonun baslangic tarihindeki fiyatlarinin toplami
+SELECT TUMTABLO.Id, SUM(TUMTABLO.TOPLAMTUTAR) AS TOPLAMFATURATUTARI FROM
+(SELECT Rez.Id, SUM(REK.ToplamTutar) AS TOPLAMTUTAR FROM Rezervasyon Rez
+	JOIN Rezervasyon_EkHizmet REK ON REK.RezervasyonId = Rez.Id
+	GROUP BY Rez.Id
+UNION
+SELECT Rez.Id, SUM(ROO.ToplamTutar) AS TOPLAMTUTAR FROM Rezervasyon Rez
+	JOIN Rezervasyon_OtelOlanaklari ROO ON ROO.RezervasyonId = Rez.Id
+	GROUP BY Rez.Id
+UNION
+SELECT Rez.Id, SUM(RO.ToplamTutar) AS TOPLAMTUTAR FROM Rezervasyon Rez
+	JOIN Rezervasyon_Oda RO ON RO.RezervasyonId = Rez.Id
+	GROUP BY Rez.Id
+) AS TUMTABLO
+GROUP BY TUMTABLO.Id
+	
+	
 
 
 	-- kontrol
@@ -95,3 +117,5 @@ GROUP BY TUMTOPLAMLAR.RezId
 	SELECT * FROM Rezervasyon_OtelOlanaklari WHERE RezervasyonId = 1
 	SELECT * FROM OtelOlanaklari WHERE Id = 1
 	SELECT * FROM Fiyat WHERE OtelOlanaklariId = 1 AND '2018-04-21' BETWEEN BaslangicTarihi AND BitisTarihi
+
+	select * from Rezervasyon_EkHizmet

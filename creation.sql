@@ -199,6 +199,8 @@ CREATE TABLE Rezervasyon_Oda(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	RezervasyonId INT NOT NULL CONSTRAINT FK_Rezervasyon_Oda_Rezervasyon_RezervasyonId FOREIGN KEY (RezervasyonId) REFERENCES Rezervasyon(Id),
 	OdaId INT NOT NULL CONSTRAINT FK_Rezervasyon_Oda_Oda_OdaId FOREIGN KEY (OdaId) REFERENCES Oda(Id),
+	ToplamTutar INT NOT NULL,
+	OlusturmaTarihi DATETIME NOT NULL DEFAULT GETDATE()
 )
 GO
 
@@ -206,7 +208,9 @@ GO
 CREATE TABLE Rezervasyon_EkHizmet(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	RezervasyonId INT NOT NULL CONSTRAINT FK_Rezervasyon_EkHizmet_Rezervasyon_RezervasyonId FOREIGN KEY (RezervasyonId) REFERENCES Rezervasyon(Id),
-	EkHizmetId INT NOT NULL CONSTRAINT FK_Rezervasyon_EkHizmet_EkHizmet_EkHizmetId FOREIGN KEY (EkHizmetId) REFERENCES EkHizmet(Id)
+	EkHizmetId INT NOT NULL CONSTRAINT FK_Rezervasyon_EkHizmet_EkHizmet_EkHizmetId FOREIGN KEY (EkHizmetId) REFERENCES EkHizmet(Id),
+	ToplamTutar INT NOT NULL,
+	OlusturmaTarihi DATETIME NOT NULL DEFAULT GETDATE()
 )
 GO
 
@@ -214,6 +218,8 @@ GO
 CREATE TABLE Rezervasyon_OtelOlanaklari(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	RezervasyonId INT NOT NULL CONSTRAINT FK_Rezervasyon_OtelOlanaklari_Rezervasyon_RezervasyonId FOREIGN KEY (RezervasyonId) REFERENCES Rezervasyon(Id),
-	OtelOlanaklariId INT NOT NULL CONSTRAINT FK_Rezervasyon_OtelOlanaklari_OtelOlanaklari_OtelOlanaklariId FOREIGN KEY (OtelOlanaklariId) REFERENCES OtelOlanaklari(Id)
+	OtelOlanaklariId INT NOT NULL CONSTRAINT FK_Rezervasyon_OtelOlanaklari_OtelOlanaklari_OtelOlanaklariId FOREIGN KEY (OtelOlanaklariId) REFERENCES OtelOlanaklari(Id),
+	ToplamTutar INT NOT NULL,
+	OlusturmaTarihi DATETIME NOT NULL DEFAULT GETDATE()
 )
 GO
