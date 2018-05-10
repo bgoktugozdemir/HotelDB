@@ -1173,7 +1173,6 @@ INSERT INTO Rezervasyon_EkHizmet(
 (5, 9, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 5))),
 (5, 10, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 5))),
 (5, 11, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE ('2018-07-09' BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 5))); 
-
 INSERT INTO Rezervasyon_OtelOlanaklari(
 	OtelOlanaklariId, RezervasyonId, ToplamTutar
 ) VALUES
