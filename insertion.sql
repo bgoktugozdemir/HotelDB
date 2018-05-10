@@ -323,8 +323,8 @@ INSERT INTO Rezervasyon(BaslangicTarihi, BitisTarihi, CikisTarihi, SilinmeTarihi
 	('2018-03-01', '2018-03-25', NULL, NULL, 7),
 	('2018-04-26', '2018-05-03', NULL, NULL, 6),
 	('2017-07-01', '2017-07-04', NULL, NULL, 8),
-	('2017-09-09', '2017-09-14', NULL, '2017-04-28', 9),
-	('2018-06-10', '2018-06-24', NULL, '2018-04-19', 10),
+	('2017-09-09', '2017-09-14', NULL, '2017-09-14', 9),
+	('2018-06-10', '2018-06-24', NULL, '2018-06-24', 10),
 	('2017-01-03', '2017-01-23', NULL, NULL, 4),
 	('2018-03-03', '2018-03-28', NULL, NULL, 45),
 	('2017-01-03', '2017-01-23', NULL, NULL, 45),
@@ -1173,7 +1173,6 @@ INSERT INTO Rezervasyon_EkHizmet(
 (5, 9, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 5))),
 (5, 10, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE (GETDATE() BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 5))),
 (5, 11, (SELECT F.Deger FROM Fiyat F JOIN EkHizmet EK ON EK.Id = F.EkHizmetId WHERE ('2018-07-09' BETWEEN F.BaslangicTarihi AND F.BitisTarihi) AND (EK.Id = 5))); 
-
 INSERT INTO Rezervasyon_OtelOlanaklari(
 	OtelOlanaklariId, RezervasyonId, ToplamTutar
 ) VALUES
