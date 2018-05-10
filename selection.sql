@@ -143,5 +143,9 @@ WHERE Rez.SilinmeTarihi IS NULL
 GROUP BY M.Cinsiyet, YEAR(Rez.BaslangicTarihi)
 ORDER BY YIL DESC, M.Cinsiyet DESC
 
-
-
+	-- Verilen tarihler arasında en çok gelir elde edilen ek hizmetleri sıralar
+	SELECT EK.Ad [Ek Hizmet Adi], COUNT(REK.EkHizmetId) [Kac Defa Kullanilmis], SUM(REK.ToplamTutar) TOPLAMTUTAR FROM Rezervasyon_EkHizmet REK
+		JOIN EkHizmet EK ON EK.Id = REK.EkHizmetId
+	WHERE REK.OlusturmaTarihi BETWEEN '2018-01-01' AND '2018-12-31'
+	GROUP BY EK.Ad
+	ORDER BY TOPLAMTUTAR DESC
