@@ -63,7 +63,7 @@ CREATE TABLE Otel(
 								CONSTRAINT UQ_Otel_Email UNIQUE,
 	OtelYildizi INT CONSTRAINT CHK_Otel_OtelYildizi CHECK(OtelYildizi LIKE '[0-5]'),
 	OtelPuani DECIMAL CONSTRAINT CHK_Otel_OtelPuani CHECK(OtelPuani >= 0 AND OtelPuani <= 5),
-	OdaSayisi AS 241,
+	OdaSayisi INT NULL DEFAULT 0 CONSTRAINT CHK_Otel_OdaSayisi CHECK(OdaSayisi >= 0),
 	IlId INT NOT NULL CONSTRAINT FK_Otel_Il_IlId FOREIGN KEY (IlId) REFERENCES Il (Id),
 	IlceId INT NOT NULL CONSTRAINT FK_Otel_Ilce_IlceId FOREIGN KEY (IlceId) REFERENCES Ilce (Id),
 )
@@ -80,7 +80,6 @@ GO
 CREATE TABLE Calisan(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	KimlikNo CHAR(11) UNIQUE NOT NULL,
-	-- Cinsiyet TINYINT NOT NULL, TODO: hocaya sor cunku hoca integer 1,2,3 gibi tutarsiniz demisti
 	Cinsiyet CHAR(1) NOT NULL CONSTRAINT CHK_Calisan_Cinsiyet CHECK(Cinsiyet = 'E' OR Cinsiyet = 'K' OR Cinsiyet = 'D'),
 	TelefonNumarasi VARCHAR(13) CONSTRAINT CHK_Calisan_TelefonNumarasi CHECK(TelefonNumarasi LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
 	Ad NVARCHAR(30) NOT NULL,
@@ -118,13 +117,20 @@ GO
 /* FIYAT */
 CREATE TABLE Fiyat(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
-	Deger SMALLMONEY NOT NULL,
+	Deger SMALLMONEY NOT NULL CONSTRAINT CHK_Fiyat_Deger CHECK(Deger >= 0),
 	BaslangicTarihi DATETIME NOT NULL DEFAULT GETDATE(),
 	BitisTarihi DATETIME NOT NULL,
-	OtelOlanaklariId INT CONSTRAINT FK_Fiyat_OtelOlanaklari_OtelOlanaklariId FOREIGN KEY (OtelOlanaklariId) REFERENCES OtelOlanaklari(Id),
-	OdaTipiId INT CONSTRAINT FK_Fiyat_Odatipi_OdaTipiId FOREIGN KEY (OdaTipiId) REFERENCES OdaTipi(Id),
-	EkHizmetId INT CONSTRAINT FK_Fiyat_EkHizmet_EkHizmetId FOREIGN KEY (EkHizmetId) REFERENCES EkHizmet(Id)
+	OtelOlanaklariId INT DEFAULT NULL CONSTRAINT FK_Fiyat_OtelOlanaklari_OtelOlanaklariId FOREIGN KEY (OtelOlanaklariId) REFERENCES OtelOlanaklari(Id),
+	OdaTipiId INT DEFAULT NULL CONSTRAINT FK_Fiyat_Odatipi_OdaTipiId FOREIGN KEY (OdaTipiId) REFERENCES OdaTipi(Id),
+	EkHizmetId INT DEFAULT NULL CONSTRAINT FK_Fiyat_EkHizmet_EkHizmetId FOREIGN KEY (EkHizmetId) REFERENCES EkHizmet(Id),
 )
+GO
+
+ALTER TABLE Fiyat
+	ADD CONSTRAINT CHK_Fiyat_BitisTarihi CHECK (BitisTarihi > BaslangicTarihi),
+		CONSTRAINT CHK_Fiyat_OtelOlanaklariId CHECK((OdaTipiId IS NULL AND EkHizmetId IS NULL) OR (OtelOlanaklariId IS NULL)),
+		CONSTRAINT CHK_Fiyat_OdaTipiId CHECK((OtelOlanaklariId IS NULL AND EkHizmetId IS NULL) OR (OdaTipiId IS NULL)),
+		CONSTRAINT CHK_Fiyat_EkHizmetId CHECK((OdaTipiId IS NULL AND OtelOlanaklariId IS NULL) OR (EkHizmetId IS NULL))
 GO
 
 /* MUSTERI */
@@ -137,7 +143,6 @@ CREATE TABLE Musteri(
 	Email VARCHAR(256) -- TODO: unique eklenmeli ama nullable olmali hocaya sor CONSTRAINT UQ_Musteri_Email UNIQUE
 					   CONSTRAINT CHK_Musteri_Email CHECK (Email LIKE '%@%.%'),
 	TelefonNumarasi VARCHAR(13) CONSTRAINT CHK_Musteri_TelefonNumarasi CHECK(TelefonNumarasi LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
-	-- Cinsiyet TINYINT NOT NULL, TODO: hocaya sor cunku hoca integer 1,2,3 gibi tutarsiniz demisti
 	Cinsiyet CHAR(1) NOT NULL CONSTRAINT CHK_Musteri_Cinsiyet CHECK(Cinsiyet = 'E' OR Cinsiyet = 'K' OR Cinsiyet = 'D')
 )
 GO
@@ -151,6 +156,11 @@ CREATE TABLE Rezervasyon(
 	SilinmeTarihi DATETIME DEFAULT NULL, -- TODO: gerek yoksa kaldirmayi dusunelim
 	MusteriId INT NOT NULL CONSTRAINT FK_Rezervasyon_Musteri_MusteriId FOREIGN KEY (MusteriId) REFERENCES Musteri(Id)
 )
+GO
+
+ALTER TABLE Rezervasyon
+	ADD CONSTRAINT CHK_Rezervasyon_BitisTarihi CHECK(BitisTarihi > BaslangicTarihi),
+		CONSTRAINT CHK_Rezervasyon_SilinmeTarihi CHECK(SilinmeTarihi >= BitisTarihi OR SilinmeTarihi IS NULL)
 GO
 
 /************************************************
@@ -170,11 +180,16 @@ CREATE TABLE Otel_Calisan(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	OtelId INT NOT NULL CONSTRAINT FK_Otel_Calisan_Otel_OtelId FOREIGN KEY (OtelId) REFERENCES Otel(Id),
 	CalisanId INT NOT NULL CONSTRAINT FK_Otel_Calisan_Calisan_CalisanId FOREIGN KEY (CalisanId) REFERENCES Calisan(Id),
-	Maas SMALLMONEY NOT NULL,
+	Maas SMALLMONEY NOT NULL CONSTRAINT CHK_Otel_Calisan_Maas CHECK(Maas >= 0),
 	SilinmeTarihi DATETIME DEFAULT NULL, -- TODO: cikis tarihi tutuyoz buna ihtiyac yok gibi, hocaya danisalim
 	BaslangicTarihi DATETIME NOT NULL DEFAULT GETDATE(),
 	CikisTarihi DATETIME DEFAULT NULL
 )
+GO
+
+ALTER TABLE Otel_Calisan
+	ADD CONSTRAINT CHK_Otel_Calisan_SilinmeTarihi CHECK(SilinmeTarihi > CikisTarihi),
+		CONSTRAINT CHK_Otel_Calisan_CikisTarihi CHECK(CikisTarihi > BaslangicTarihi)
 GO
 
 /* ODA - EK HIZMET */
@@ -199,7 +214,7 @@ CREATE TABLE Rezervasyon_Oda(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	RezervasyonId INT NOT NULL CONSTRAINT FK_Rezervasyon_Oda_Rezervasyon_RezervasyonId FOREIGN KEY (RezervasyonId) REFERENCES Rezervasyon(Id),
 	OdaId INT NOT NULL CONSTRAINT FK_Rezervasyon_Oda_Oda_OdaId FOREIGN KEY (OdaId) REFERENCES Oda(Id),
-	ToplamTutar INT NOT NULL,
+	ToplamTutar INT NOT NULL CONSTRAINT Rezervasyon_Oda_ToplamTutar CHECK(ToplamTutar >= 0),
 	OlusturmaTarihi DATETIME NOT NULL DEFAULT GETDATE()
 )
 GO
@@ -209,7 +224,7 @@ CREATE TABLE Rezervasyon_EkHizmet(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	RezervasyonId INT NOT NULL CONSTRAINT FK_Rezervasyon_EkHizmet_Rezervasyon_RezervasyonId FOREIGN KEY (RezervasyonId) REFERENCES Rezervasyon(Id),
 	EkHizmetId INT NOT NULL CONSTRAINT FK_Rezervasyon_EkHizmet_EkHizmet_EkHizmetId FOREIGN KEY (EkHizmetId) REFERENCES EkHizmet(Id),
-	ToplamTutar INT NOT NULL,
+	ToplamTutar INT NOT NULL CONSTRAINT Rezervasyon_EkHizmet_ToplamTutar CHECK(ToplamTutar >= 0),
 	OlusturmaTarihi DATETIME NOT NULL DEFAULT GETDATE()
 )
 GO
@@ -219,7 +234,7 @@ CREATE TABLE Rezervasyon_OtelOlanaklari(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	RezervasyonId INT NOT NULL CONSTRAINT FK_Rezervasyon_OtelOlanaklari_Rezervasyon_RezervasyonId FOREIGN KEY (RezervasyonId) REFERENCES Rezervasyon(Id),
 	OtelOlanaklariId INT NOT NULL CONSTRAINT FK_Rezervasyon_OtelOlanaklari_OtelOlanaklari_OtelOlanaklariId FOREIGN KEY (OtelOlanaklariId) REFERENCES OtelOlanaklari(Id),
-	ToplamTutar INT NOT NULL,
+	ToplamTutar INT NOT NULL CONSTRAINT Rezervasyon_OtelOlanaklari_ToplamTutar CHECK(ToplamTutar >= 0),
 	OlusturmaTarihi DATETIME NOT NULL DEFAULT GETDATE()
 )
 GO
