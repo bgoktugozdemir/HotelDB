@@ -118,4 +118,9 @@ GROUP BY TUMTABLO.Id
 	SELECT * FROM OtelOlanaklari WHERE Id = 1
 	SELECT * FROM Fiyat WHERE OtelOlanaklariId = 1 AND '2018-04-21' BETWEEN BaslangicTarihi AND BitisTarihi
 
-	select * from Rezervasyon_EkHizmet
+	-- Verilen tarihler arasında en çok gelir elde edilen ek hizmetleri sıralar
+	SELECT EK.Ad [Ek Hizmet Adi], COUNT(REK.EkHizmetId) [Kac Defa Kullanilmis], SUM(REK.ToplamTutar) TOPLAMTUTAR FROM Rezervasyon_EkHizmet REK
+		JOIN EkHizmet EK ON EK.Id = REK.EkHizmetId
+	WHERE REK.OlusturmaTarihi BETWEEN '2018-01-01' AND '2018-12-31'
+	GROUP BY EK.Ad
+	ORDER BY TOPLAMTUTAR DESC
