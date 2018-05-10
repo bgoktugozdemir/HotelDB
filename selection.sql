@@ -11,16 +11,22 @@ SELECT OO.Ad, Fiyat.Deger FROM Fiyat
 	JOIN OtelOlanaklari AS OO ON OO.Id = Fiyat.OtelOlanaklariId
 WHERE BaslangicTarihi < '2019-06-01'
 
--- oda tiplerinin verilen tarihler araliginda kac farkli fiyati oldugunu verir yani odanin fiyati kac defa degismis
-SELECT OT.Ad AS Tipi, COUNT(*) FROM Fiyat
-	JOIN OdaTipi AS OT ON OT.Id = Fiyat.OdaTipiId
+-- oda tiplerinin verilen tarihler araliginda kac farkli fiyati oldugunu verir yani odanin fiyati kac defa degismis ve o odatipinin guncel fiyati
+SELECT OT.Ad AS [Oda Tipi], COUNT(OT.Ad) AS [Kac Defa], AVG(F.Deger) AS [Fiyat Ortalaması], GUNCELFIYAT.Deger AS [Güncel Fiyat] FROM Fiyat F
+	JOIN OdaTipi AS OT ON OT.Id = F.OdaTipiId
+	JOIN (SELECT OT2.Id AS OId, F2.Deger FROM Fiyat F2
+			JOIN OdaTipi OT2 ON OT2.Id = F2.OdaTipiId
+			WHERE
+				GETDATE() BETWEEN F2.BaslangicTarihi AND F2.BitisTarihi) AS GUNCELFIYAT ON GUNCELFIYAT.OId = OT.Id
 WHERE 
-	BaslangicTarihi BETWEEN '2017-06-01' AND '2018-06-01' 
+	F.BaslangicTarihi BETWEEN '2017-06-01' AND '2018-06-01' 
 AND
-	BitisTarihi BETWEEN '2017-06-01' AND '2018-06-01'
-GROUP BY OT.Ad
+	F.BitisTarihi BETWEEN '2017-06-01' AND '2018-06-01'
+GROUP BY OT.Ad, GUNCELFIYAT.Deger
+																														
 
 
+-- bitmedi
 --  2018 Mart ayındaki rezervasyonlarda rez.süresi 2017 yılı ilk 3 aylık süreden daha uzun olan rezervasyonların bilgileri
 SELECT DATEDIFF(DD, Rez.BaslangicTarihi, Rez.BitisTarihi) AS RezervasyonSuresi, Mus.Ad + ' ' + Mus.Soyad AS RezervasyonYapanMusteri FROM Rezervasyon Rez
 JOIN Musteri Mus ON Mus.Id = Rez.MusteriId
@@ -79,7 +85,7 @@ SELECT TUMTOPLAMLAR.RezId, SUM(TUMTOPLAMLAR.TOPLAMFIYAT) AS TOPLAMFATURATUTARI F
 GROUP BY TUMTOPLAMLAR.RezId
 
 
-
+-- bitmedi
 -- ## V2 ## rezervasyonun fatura tutarı yani rezervasyondaki odalarin, ek hizmetlerin ve otel olanaklarin rezervasyonun baslangic tarihindeki fiyatlarinin toplami
 SELECT TUMTABLO.Id, SUM(TUMTABLO.TOPLAMTUTAR) AS TOPLAMFATURATUTARI FROM
 (SELECT Rez.Id, SUM(REK.ToplamTutar) AS TOPLAMTUTAR FROM Rezervasyon Rez
@@ -96,7 +102,15 @@ SELECT Rez.Id, SUM(RO.ToplamTutar) AS TOPLAMTUTAR FROM Rezervasyon Rez
 ) AS TUMTABLO
 GROUP BY TUMTABLO.Id
 	
-	
+
+-- ek hizmetten elde edilen gelirin buyukten kucuge sırala her ek hizmetten gelen gelirin ortalaması
+SELECT EK.Ad, SUM(REK.ToplamTutar) AS TOPLAMTUTAR, COUNT(REK.EkHizmetId) [Kac Defa Kullanilmis], (SUM(REK.ToplamTutar)/COUNT(REK.ToplamTutar)) AS ORT
+FROM Rezervasyon_EkHizmet REK
+	JOIN EkHizmet EK ON EK.Id = REK.EkHizmetId
+WHERE REK.OlusturmaTarihi BETWEEN '2018-01-01' AND '2018-12-31'
+GROUP BY EK.Ad
+ORDER BY TOPLAMTUTAR DESC
+
 
 
 	-- kontrol
@@ -119,3 +133,15 @@ GROUP BY TUMTABLO.Id
 	SELECT * FROM Fiyat WHERE OtelOlanaklariId = 1 AND '2018-04-21' BETWEEN BaslangicTarihi AND BitisTarihi
 
 	select * from Rezervasyon_EkHizmet
+
+
+-- Yıllara göre otelde kalan erkek/kadın sayısı
+SELECT YEAR(Rez.BaslangicTarihi) AS [YIL], M.Cinsiyet, COUNT(M.Cinsiyet) AS [Kaç Kişi] FROM Rezervasyon_Musteri RM
+	JOIN  Musteri M ON RM.MusteriId = M.Id
+	JOIN Rezervasyon Rez ON Rez.Id = RM.RezervasyonId
+WHERE Rez.SilinmeTarihi IS NULL
+GROUP BY M.Cinsiyet, YEAR(Rez.BaslangicTarihi)
+ORDER BY YIL DESC, M.Cinsiyet DESC
+
+
+
