@@ -19,14 +19,14 @@ GO
 CREATE DATABASE OTEL
 	ON PRIMARY(
 		NAME = 'otel_db',
-		FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\otel_db.ldf',
+		FILENAME = 'W:\database\otel_db.ldf',
 		SIZE = 20MB,
 		MAXSIZE = 100MB,
 		FILEGROWTH = 10MB
 	)
 	LOG ON(
 		NAME = 'otel_log',
-		FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\otel_log.ldf',
+		FILENAME = 'W:\database\otel_log.ldf',
 		SIZE = 10MB,
 		MAXSIZE = 60MB,
 		FILEGROWTH = 5MB
