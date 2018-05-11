@@ -183,7 +183,7 @@ CREATE TABLE Otel_Calisan(
 	OtelId INT NOT NULL CONSTRAINT FK_Otel_Calisan_Otel_OtelId FOREIGN KEY (OtelId) REFERENCES Otel(Id),
 	CalisanId INT NOT NULL CONSTRAINT FK_Otel_Calisan_Calisan_CalisanId FOREIGN KEY (CalisanId) REFERENCES Calisan(Id),
 	Maas SMALLMONEY NOT NULL CONSTRAINT CHK_Otel_Calisan_Maas CHECK(Maas >= 0),
-	SilinmeTarihi DATETIME DEFAULT NULL, -- TODO: cikis tarihi tutuyoz buna ihtiyac yok gibi, hocaya danisalim
+	SilinmeTarihi DATETIME DEFAULT NULL,
 	BaslangicTarihi DATETIME NOT NULL DEFAULT GETDATE(),
 	CikisTarihi DATETIME DEFAULT NULL
 )
@@ -206,8 +206,7 @@ GO
 CREATE TABLE Rezervasyon_Musteri(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	RezervasyonId INT NOT NULL CONSTRAINT FK_Rezervasyon_Musteri_Rezervasyon_RezervasyonId FOREIGN KEY (RezervasyonId) REFERENCES Rezervasyon(Id),
-	MusteriId INT NOT NULL CONSTRAINT FK_Rezervasyon_Musteri_Musteri_MusteriId FOREIGN KEY (MusteriId) REFERENCES Musteri(Id),
-	-- SilinmeTarihi DATETIME DEFAULT NULL, TODO: bunda yanlislik yaptigimizi farkettik hocaya danisip kaldirmayi dusunelim
+	MusteriId INT NOT NULL CONSTRAINT FK_Rezervasyon_Musteri_Musteri_MusteriId FOREIGN KEY (MusteriId) REFERENCES Musteri(Id)
 )
 GO
 
