@@ -199,13 +199,13 @@ INSERT INTO Calisan(KimlikNo, Cinsiyet, TelefonNumarasi, Ad, Soyad, DogumTarihi,
 	('07876855809', 'K', '0140625738', 'ZAHİDE', 'TÜFEKÇİ', '1984-12-03', '01tüfekçi̇@mail.com');
 
 INSERT INTO Musteri (KimlikNo, Cinsiyet, TelefonNumarasi, Ad, Soyad, DogumTarihi, Email) VALUES
-	('25004792873', 'E', '6063538622', 'YASİN', 'SEZER', '1996-08-11', '60sezer@mail.com'),
-	('99905950085', 'E', '7012117019', 'RAFET', 'DOĞAN', '2004-08-19', '70doğan@mail.com'),
-	('72202793902', 'E', '9830902926', 'SERDAL', 'DEMİR', '2017-06-13', '98demi̇r@mail.com'),
+	('25004792873', 'E', '6063538622', 'YASİN', 'SEZER', '1996-08-11', '60sezer@hotmail.com'),
+	('99905950085', 'E', '7012117019', 'RAFET', 'DOĞAN', '2004-08-19', '70doğan@likemail.com'),
+	('72202793902', 'E', '9830902926', 'SERDAL', 'DEMİR', '2017-06-13', '98demi̇r@facemail.com'),
 	('66475504242', 'E', '6713232655', 'SELAİDDİN', 'KAYAYURT', '1999-12-28', '67kayayurt@mail.com'),
 	('33408436254', 'E', '7335033897', 'BÜLENT', 'SÜRÜM', '1998-10-23', '73sürüm@mail.com'),
 	('22960306272', 'E', '2296098939', 'BARIŞ', 'YAVAŞİ', '2012-02-08', '22yavaşi̇@mail.com'),
-	('29836490937', 'E', '8244577528', 'FIRAT', 'TURGUT', '2008-07-28', '82turgut@mail.com'),
+	('29836490937', 'E', '8244577528', 'FIRAT', 'TURGUT', '2008-07-28', '82turgut@hotmail.com'),
 	('78072038192', 'E', '0859550635', 'DURMUŞALİ', 'ŞEN TANRIKULU', '2013-03-02', 'DUtanrikulu@mail.com'),
 	('37118859031', 'E', '2913445264', 'ZİYA', 'BARBAROS', '2004-08-17', '29barbaros@mail.com'),
 	('44084039548', 'E', '9611621363', 'MESUT', 'ALDİNÇ', '2006-11-27', '96aldi̇nç@mail.com'),
@@ -659,23 +659,23 @@ INSERT INTO Ilce(Ad, IlId) VALUES
 	('Merkez', 7),
 	('Merkez', 8),
 	('Merkez', 9),
-	('Merkez', 10),
-	('Termal', 10);
+	('Merkez', 77),
+	('Termal', 77);
 
 	-- 12 otel
 INSERT INTO Otel (Ad, Telefon, Adres, Email, OtelPuani, OtelYildizi, IlId, IlceId ) VALUES
-	('Termal Otel', '5554443322', 'Gökçedere Mahallesi Lale Sokak No: 3', 'mail@termalotel.com', 3, 5, 1, 1),
-	('Termal Otel 2', '5554443323', 'Nergis Mahallesi Lale Sokak No: 3', 'mail2@termalotel.com', 2.5, 3, 1, 1),
-	('Armada Otel', '5554443322', 'Asma Mahallesi Lale Sokak No: 3', 'mail3@termalotel.com', 4, 5, 1, 1),
-	('Termal Otel', '5554443322', 'Kadir Mahallesi Lale Sokak No: 3', 'mail4@termalotel.com', 3, 2, 1, 1),
-	('Termal Otel', '5554443322', 'Selfie Mahallesi Lale Sokak No: 3', 'mail5@termalotel.com', 3, 4, 1, 1),
-	('Termal Otel', '5554443322', 'Deniz Mahallesi Lale Sokak No: 3', 'mail6@termalotel.com', 3, 4, 1, 1),
-	('Termal Otel', '5554443322', 'Bağlarbaşı Mahallesi Lale Sokak No: 3', 'mail7@termalotel.com', 3, 1, 1, 1),
-	('Termal Otel', '5554443322', 'Safranyolu Mahallesi Lale Sokak No: 3', 'mail8@termalotel.com', 3, 0, 1, 1),
-	('Termal Otel', '5554443322', 'Tigem Mahallesi Lale Sokak No: 3', 'mail9@termalotel.com', 3, 5, 1, 1),
-	('Termal Otel', '5554443322', 'Bornoz Mahallesi Lale Sokak No: 3', 'mail10@termalotel.com', 3, 4, 1, 1),
-	('Termal Otel', '5554443322', 'Sabuncu Mahallesi Lale Sokak No: 3', 'mail11@termalotel.com', 3, 3, 1, 1),
-	('Termal Otel', '5554443322', 'Çam Mahallesi Lale Sokak No: 3', 'mail12@termalotel.com', 3, 2, 1, 1);
+	('Termal Otel', '5554443322', 'Gökçedere Mahallesi Lale Sokak No: 3', 'mail@termalotel.com', 3, 5, 77, 2),
+	('Termal Otel 2', '5554443323', 'Nergis Mahallesi Lale Sokak No: 3', 'mail2@termalotel.com', 2.5, 3, 14, 1),
+	('Armada Otel', '5554443322', 'Asma Mahallesi Lale Sokak No: 3', 'mail3@termalotel.com', 4, 5, 44, 1),
+	('Divan City', '5554443322', 'Kadir Mahallesi Lale Sokak No: 3', 'mail4@termalotel.com', 3, 2, 7, 1),
+	('Manesol Tüyap', '5554443322', 'Selfie Mahallesi Lale Sokak No: 3', 'mail5@termalotel.com', 3, 4, 34, 1),
+	('Elite World Business', '5554443322', 'Deniz Mahallesi Lale Sokak No: 3', 'mail6@termalotel.com', 3, 4, 7, 1),
+	('Suadiye', '5554443322', 'Bağlarbaşı Mahallesi Lale Sokak No: 3', 'mail7@termalotel.com', 3, 1, 34, 1),
+	('Zagreb Hotel', '5554443322', 'Safranyolu Mahallesi Lale Sokak No: 3', 'mail8@termalotel.com', 3, 0, 6, 1),
+	('The Sofa', '5554443322', 'Tigem Mahallesi Lale Sokak No: 3', 'mail9@termalotel.com', 3, 5, 6, 1),
+	('Dedeman Park Levent', '5554443322', 'Bornoz Mahallesi Lale Sokak No: 3', 'mail10@termalotel.com', 3, 4, 66, 1),
+	('Otel Madrid', '5554443322', 'Sabuncu Mahallesi Lale Sokak No: 3', 'mail11@termalotel.com', 3, 3, 44, 1),
+	('Otel Best Island', '5554443322', 'Çam Mahallesi Lale Sokak No: 3', 'mail12@termalotel.com', 3, 2, 55, 1);
 
 	-- 207 oda
 INSERT INTO Oda (Kapasite, OtelId, OdaTipiId) VALUES
