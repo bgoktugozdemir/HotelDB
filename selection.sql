@@ -1,17 +1,13 @@
 ﻿USE OTEL
 GO
 
-/* ek hizmetleri fiyatlariyla yazar */
-SELECT EK.Ad, Fiyat.Deger FROM Fiyat
-	JOIN EkHizmet AS EK ON EK.Id = Fiyat.EkHizmetId
-WHERE BaslangicTarihi < '2018-06-01'
-
-/* otel olanaklarini fiyatlariyla yazar */
-SELECT OO.Ad, Fiyat.Deger FROM Fiyat
-	JOIN OtelOlanaklari AS OO ON OO.Id = Fiyat.OtelOlanaklariId
-WHERE BaslangicTarihi < '2019-06-01'
-
--- oda tiplerinin verilen tarihler araliginda kac farkli fiyati oldugunu verir yani odanin fiyati kac defa degismis ve o odatipinin guncel fiyati
+-- #1
+-- AMAC: Bir odanin fiyatinin belirli tarihlerdeki fiyat ortalamasi ve guncel fiyat ortalamasina bakarak bu odayi kiralamanin mantikli olup olmayacagi gorulebilir.
+/*
+	Oda tiplerinin verilen tarihler araliginda kac farkli
+	fiyati oldugunu ve o odatipinin guncel fiyatini verir.
+	Bize oda tipinin adina gore a'dan z'ye sirali olarak getirir.
+*/
 SELECT OT.Ad AS [Oda Tipi], COUNT(OT.Ad) AS [Kac Defa], AVG(F.Deger) AS [Fiyat Ortalaması], GUNCELFIYAT.Deger AS [Güncel Fiyat] FROM Fiyat F
 	JOIN OdaTipi AS OT ON OT.Id = F.OdaTipiId
 	JOIN (SELECT OT2.Id AS OId, F2.Deger FROM Fiyat F2
@@ -23,7 +19,37 @@ WHERE
 AND
 	F.BitisTarihi BETWEEN '2017-06-01' AND '2018-06-01'
 GROUP BY OT.Ad, GUNCELFIYAT.Deger
-																														
+ORDER BY OT.Ad ASC
+
+-- #2
+-- AMAC: Otel sahibi için fazla kazandiran hizmetler uzerine yatirim yapip daha fazla kazanc elde etmek ve hizmetlerin fiyatlarini, ortalama fiyattan hizli bir yukselis yapacak sekilde yukselterek, musterilerin bu hizmetleri alamamasini engellemeye yonelik kullanilabilir.
+/*
+	Bir ekhizmetin belirli tarihler arasindaki kazandirdigi toplam tutar,
+	bu hizmetin kac defa kullanildigi ve bu hizmetin ortalama fiyatini verir.
+	Bize toplam tutara gore buyukten kucuge sirali olarak getirir.
+*/
+SELECT EK.Ad, SUM(REK.ToplamTutar) AS [Toplam Tutar], COUNT(REK.EkHizmetId) [Kac Defa Kullanilmis], (SUM(REK.ToplamTutar)/COUNT(REK.ToplamTutar)) AS [Ortalama Fiyati]
+FROM Rezervasyon_EkHizmet REK
+	JOIN EkHizmet EK ON EK.Id = REK.EkHizmetId
+WHERE REK.OlusturmaTarihi BETWEEN '2018-01-01' AND '2018-12-31'
+GROUP BY EK.Ad
+ORDER BY [Toplam Tutar] DESC
+
+
+-- #3
+-- AMAC: Otel sahibi icin otellerde kalan musterilerinin sayisini cinsiyet ve yil bazli goruntuleyebilir. Ornegin, otelleri erkekler daha fazla tercih ediyorsa otelini erkekler icin tasarlayarak musteri memnuniyetini artirir, ayrica musteri cekmek icin yapacagi reklam kitlesini de bu sekilde belirleyebilir.
+/*
+	Otellerde kalan musterilerin sayisini cinsiyet ve yil bazli olarak goruntuler.
+*/
+SELECT YEAR(Rez.BaslangicTarihi) AS [YIL], M.Cinsiyet, COUNT(M.Cinsiyet) AS [Kaç Kişi] FROM Rezervasyon_Musteri RM
+	JOIN  Musteri M ON RM.MusteriId = M.Id
+	JOIN Rezervasyon Rez ON Rez.Id = RM.RezervasyonId
+WHERE Rez.SilinmeTarihi IS NULL
+GROUP BY M.Cinsiyet, YEAR(Rez.BaslangicTarihi)
+ORDER BY YIL DESC, M.Cinsiyet DESC
+
+
+
 
 
 -- bitmedi
@@ -102,50 +128,3 @@ SELECT Rez.Id, SUM(RO.ToplamTutar) AS TOPLAMTUTAR FROM Rezervasyon Rez
 ) AS TUMTABLO
 GROUP BY TUMTABLO.Id
 	
-
--- ek hizmetten elde edilen gelirin buyukten kucuge sırala her ek hizmetten gelen gelirin ortalaması
-SELECT EK.Ad, SUM(REK.ToplamTutar) AS TOPLAMTUTAR, COUNT(REK.EkHizmetId) [Kac Defa Kullanilmis], (SUM(REK.ToplamTutar)/COUNT(REK.ToplamTutar)) AS ORT
-FROM Rezervasyon_EkHizmet REK
-	JOIN EkHizmet EK ON EK.Id = REK.EkHizmetId
-WHERE REK.OlusturmaTarihi BETWEEN '2018-01-01' AND '2018-12-31'
-GROUP BY EK.Ad
-ORDER BY TOPLAMTUTAR DESC
-
-
-
-	-- kontrol
-	SELECT * FROM Rezervasyon WHERE Id = 1
-	
-	-- rezervasyon
-	SELECT * FROM Rezervasyon_Oda WHERE RezervasyonId = 1
-	SELECT * FROM Oda WHERE Id = 1 OR Id = 44
-	SELECT * FROM OdaTipi WHERE Id = 2
-	SELECT * FROM Fiyat WHERE OdaTipiId = 2 AND '2018-04-21' BETWEEN BaslangicTarihi AND BitisTarihi
-
-	-- ek hizmet
-	SELECT * FROM Rezervasyon_EkHizmet WHERE RezervasyonId = 1
-	SELECT * FROM EkHizmet WHERE Id = 1
-	SELECT * FROM Fiyat WHERE EkHizmetId = 1 AND '2018-04-21' BETWEEN BaslangicTarihi AND BitisTarihi
-
-	-- otel olanaklari
-	SELECT * FROM Rezervasyon_OtelOlanaklari WHERE RezervasyonId = 1
-	SELECT * FROM OtelOlanaklari WHERE Id = 1
-	SELECT * FROM Fiyat WHERE OtelOlanaklariId = 1 AND '2018-04-21' BETWEEN BaslangicTarihi AND BitisTarihi
-
-	select * from Rezervasyon_EkHizmet
-
-
--- Yıllara göre otelde kalan erkek/kadın sayısı
-SELECT YEAR(Rez.BaslangicTarihi) AS [YIL], M.Cinsiyet, COUNT(M.Cinsiyet) AS [Kaç Kişi] FROM Rezervasyon_Musteri RM
-	JOIN  Musteri M ON RM.MusteriId = M.Id
-	JOIN Rezervasyon Rez ON Rez.Id = RM.RezervasyonId
-WHERE Rez.SilinmeTarihi IS NULL
-GROUP BY M.Cinsiyet, YEAR(Rez.BaslangicTarihi)
-ORDER BY YIL DESC, M.Cinsiyet DESC
-
-	-- Verilen tarihler arasında en çok gelir elde edilen ek hizmetleri sıralar
-	SELECT EK.Ad [Ek Hizmet Adi], COUNT(REK.EkHizmetId) [Kac Defa Kullanilmis], SUM(REK.ToplamTutar) TOPLAMTUTAR FROM Rezervasyon_EkHizmet REK
-		JOIN EkHizmet EK ON EK.Id = REK.EkHizmetId
-	WHERE REK.OlusturmaTarihi BETWEEN '2018-01-01' AND '2018-12-31'
-	GROUP BY EK.Ad
-	ORDER BY TOPLAMTUTAR DESC

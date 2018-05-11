@@ -127,7 +127,8 @@ CREATE TABLE Fiyat(
 GO
 
 ALTER TABLE Fiyat
-	ADD CONSTRAINT CHK_Fiyat_BitisTarihi CHECK (BitisTarihi > BaslangicTarihi),
+	ADD CONSTRAINT CHK_Fiyat_BaslangicTarihi CHECK(BaslangicTarihi < BitisTarihi),
+		CONSTRAINT CHK_Fiyat_BitisTarihi CHECK (BitisTarihi > BaslangicTarihi),
 		CONSTRAINT CHK_Fiyat_OtelOlanaklariId CHECK((OdaTipiId IS NULL AND EkHizmetId IS NULL) OR (OtelOlanaklariId IS NULL)),
 		CONSTRAINT CHK_Fiyat_OdaTipiId CHECK((OtelOlanaklariId IS NULL AND EkHizmetId IS NULL) OR (OdaTipiId IS NULL)),
 		CONSTRAINT CHK_Fiyat_EkHizmetId CHECK((OdaTipiId IS NULL AND OtelOlanaklariId IS NULL) OR (EkHizmetId IS NULL))
@@ -159,7 +160,8 @@ CREATE TABLE Rezervasyon(
 GO
 
 ALTER TABLE Rezervasyon
-	ADD CONSTRAINT CHK_Rezervasyon_BitisTarihi CHECK(BitisTarihi > BaslangicTarihi),
+	ADD CONSTRAINT CHK_Rezervasyon_BaslangicTarihi CHECK(BaslangicTarihi < BitisTarihi AND BaslangicTarihi < SilinmeTarihi),
+		CONSTRAINT CHK_Rezervasyon_BitisTarihi CHECK(BitisTarihi > BaslangicTarihi),
 		CONSTRAINT CHK_Rezervasyon_SilinmeTarihi CHECK(SilinmeTarihi >= BitisTarihi OR SilinmeTarihi IS NULL)
 GO
 
