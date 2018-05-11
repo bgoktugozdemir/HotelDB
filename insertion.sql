@@ -1,4 +1,5 @@
 ﻿USE OTEL
+GO
 
 	-- 10 otel olanaklari
 INSERT INTO OtelOlanaklari VALUES
