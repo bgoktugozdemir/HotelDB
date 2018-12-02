@@ -38,6 +38,8 @@ FROM Oda O
 	INNER JOIN Oda_EkHizmet OE ON O.Id = OE.OdaId
 	INNER JOIN OdaTipi OT ON OT.Id = O.OdaTipiId
 	LEFT JOIN Fiyat F ON OT.Id = F.OdaTipiId
+
+
 WHERE O.Id NOT IN(
 	SELECT OdaId
 	FROM Rezervasyon_Oda RO
